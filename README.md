@@ -13,7 +13,7 @@ Ein vollständiges Online-Casino als Schulprojekt mit modernem Frontend, sichere
 ### Hauptfunktionen
 - Benutzerregistrierung und Login mit E-Mail-Verifizierung
 - Startguthaben von 1000 Euro pro Spieler
-- Verschiedene Casino-Spiele: Slots, Roulette, Coinflip, Texas Hold'em
+- Verschiedene Casino-Spiele: Slots und Roulette
 - Echtzeit-Guthabenverwaltung
 - Spielstatistiken und Verlaufsanzeige
 - Verschlüsselte Passwörter und sichere Authentifizierung
