@@ -1,0 +1,542 @@
+@import "tailwindcss";
+
+/* Global base styles for an Apple-like aesthetic */
+/* Default: Dark mode */
+:root {
+  --bg: 10 10 12; /* dark graphite */
+  --fg: 240 240 245;
+  --card: 22 22 26 / .7;
+}
+
+/* Light mode when .light class is applied */
+:root.light {
+  --bg: 255 255 255;
+  --fg: 17 17 17;
+  --card: 255 255 255 / .9;
+}
+
+/* Dark mode when .dark class is applied (explicit) */
+:root.dark {
+  --bg: 10 10 12;
+  --fg: 240 240 245;
+  --card: 22 22 26 / .7;
+}
+
+html, body, #root {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display", "Segoe UI", Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", sans-serif;
+  background: radial-gradient(1200px 800px at 20% -10%, rgba(99,102,241,.12), transparent),
+              radial-gradient(1000px 700px at 110% 10%, rgba(56,189,248,.10), transparent),
+              rgb(var(--bg));
+  color: rgb(var(--fg));
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.glass {
+  background: color-mix(in oklab, rgb(var(--bg)) 80%, transparent);
+  backdrop-filter: saturate(180%) blur(16px);
+  -webkit-backdrop-filter: saturate(180%) blur(16px);
+  border: 1px solid rgb(var(--fg) / 0.12);
+}
+
+.btn-primary {
+  @apply inline-flex items-center justify-center rounded-full px-6 py-3 text-sm font-semibold text-white shadow-lg;
+  background: linear-gradient(135deg, rgb(99 102 241) 0%, rgb(59 130 246) 100%);
+  animation: pulse-glow 2s infinite ease-in-out;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+.btn-primary:hover { 
+  transform: translateY(-2px) scale(1.02); 
+  box-shadow: 0 12px 28px rgba(59,130,246,.45);
+}
+.btn-primary:active {
+  transform: translateY(0) scale(0.98);
+}
+
+.btn-ghost {
+  @apply inline-flex items-center justify-center rounded-full px-6 py-3 text-sm font-semibold border;
+  color: rgb(var(--fg) / 0.9);
+  border-color: rgb(var(--fg) / 0.15);
+  background: transparent;
+  transition: transform 0.25s ease, border-color 0.25s ease, background-color 0.25s ease;
+}
+.btn-ghost:hover { 
+  transform: translateY(-2px); 
+  border-color: rgb(var(--fg) / 0.35);
+  background: rgb(var(--fg) / 0.05);
+}
+.btn-ghost:active {
+  transform: translateY(0);
+}
+
+/* Semantic text utility classes for better contrast in light/dark */
+.text-soft { color: rgb(var(--fg)) }
+.text-softer { color: rgb(var(--fg) / 0.85) }
+.link { 
+  color: rgb(var(--fg) / 0.65); 
+  text-decoration: none;
+  position: relative;
+  transition: color 0.3s ease;
+}
+.link::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: linear-gradient(135deg, rgb(99 102 241) 0%, rgb(59 130 246) 100%);
+  transition: width 0.3s ease;
+  border-radius: 1px;
+}
+.link:hover { 
+  color: rgb(var(--fg));
+}
+.link:hover::after {
+  width: 100%;
+}
+
+/* For The Wins-Strip (Dopamine Strip) Below */
+
+@keyframes popIn {
+  0%   { opacity: 0; transform: scale(0.95); }
+  100% { opacity: 1; transform: scale(1); }
+}
+.animate-popIn {
+  animation: popIn 0.15s ease-out forwards;
+}
+
+/* Winning Bubble Animation */
+@keyframes winningBubble {
+  0% {
+    opacity: 0;
+    transform: scale(0.5) translateY(20px);
+  }
+  50% {
+    transform: scale(1.1) translateY(0);
+  }
+  70% {
+    transform: scale(0.95) translateY(0);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+.animate-winningBubble {
+  animation: winningBubble 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+/* Slot machine frame pulse on win */
+@keyframes winPulse {
+  0%, 100% { box-shadow: 0 0 20px rgba(250, 204, 21, 0.5); }
+  50% { box-shadow: 0 0 40px rgba(250, 204, 21, 1); }
+}
+.animate-winPulse {
+  animation: winPulse 1s ease-in-out infinite;
+}
+
+/* Winning symbol animation */
+@keyframes symbolWin {
+  0%, 100% {
+    transform: scale(1.2);
+    text-shadow: 0 0 30px rgba(255, 255, 255, 1), 0 0 50px rgba(250, 204, 21, 1);
+  }
+  50% {
+    transform: scale(1.1);
+    text-shadow: 0 0 20px rgba(255, 255, 255, 0.8), 0 0 40px rgba(250, 204, 21, 0.8);
+  }
+}
+.animate-symbolWin {
+  animation: symbolWin 1.5s ease-in-out infinite;
+}
+
+/* Button pulse */
+@keyframes pulse-glow {
+  0%, 100% {
+    box-shadow: 0 0 20px rgba(99, 102, 241, 0.4);
+  }
+  50% {
+    box-shadow: 0 0 35px rgba(59, 130, 246, 0.8);
+  }
+}
+
+@keyframes text-glow {
+  0%, 100% {
+    text-shadow: 0 0 10px #fefcbf, 0 0 20px #fefcbf, 0 0 30px #fde047, 0 0 40px #fde047;
+  }
+  50% {
+    text-shadow: 0 0 20px #fefcbf, 0 0 30px #fde047, 0 0 40px #fde047, 0 0 50px #facc15;
+  }
+}
+
+.practice-text-glow {
+  animation: text-glow 2.5s ease-in-out infinite;
+}
+
+/* ============================================
+   SLOTS PAGE ENHANCED ANIMATIONS
+   ============================================ */
+
+/* Neon glow border animation */
+@keyframes neon-border {
+  0%, 100% {
+    box-shadow: 
+      0 0 5px rgba(139, 92, 246, 0.5),
+      0 0 20px rgba(139, 92, 246, 0.3),
+      inset 0 0 10px rgba(139, 92, 246, 0.1);
+  }
+  50% {
+    box-shadow: 
+      0 0 10px rgba(236, 72, 153, 0.6),
+      0 0 40px rgba(236, 72, 153, 0.4),
+      inset 0 0 20px rgba(236, 72, 153, 0.2);
+  }
+}
+
+.animate-neon-border {
+  animation: neon-border 2s ease-in-out infinite;
+}
+
+/* Rainbow shimmer for jackpot text */
+@keyframes rainbow-shimmer {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.animate-rainbow-text {
+  background: linear-gradient(
+    90deg,
+    #ff0000, #ff7f00, #ffff00, #00ff00, #0000ff, #4b0082, #9400d3, #ff0000
+  );
+  background-size: 400% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: rainbow-shimmer 3s ease infinite;
+}
+
+/* Big win celebration flash */
+@keyframes big-win-flash {
+  0%, 100% { 
+    opacity: 0;
+    transform: scale(1);
+  }
+  10% {
+    opacity: 1;
+    transform: scale(1.1);
+  }
+  90% {
+    opacity: 1;
+    transform: scale(1.05);
+  }
+}
+
+.animate-big-win-flash {
+  animation: big-win-flash 0.5s ease-out forwards;
+}
+
+/* Slot reel blur during spin */
+@keyframes reel-blur {
+  0%, 100% { filter: blur(0px); }
+  50% { filter: blur(2px); }
+}
+
+.animate-reel-blur {
+  animation: reel-blur 0.1s linear infinite;
+}
+
+/* Coin shower particle */
+@keyframes coin-fall {
+  0% {
+    transform: translateY(-100vh) rotate(0deg);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(100vh) rotate(720deg);
+    opacity: 0.5;
+  }
+}
+
+.animate-coin-fall {
+  animation: coin-fall 3s linear forwards;
+}
+
+/* Win streak fire effect */
+@keyframes streak-fire {
+  0%, 100% {
+    transform: scaleY(1) translateY(0);
+    opacity: 0.8;
+  }
+  50% {
+    transform: scaleY(1.3) translateY(-5px);
+    opacity: 1;
+  }
+}
+
+.animate-streak-fire {
+  animation: streak-fire 0.3s ease-in-out infinite;
+}
+
+/* Multiplier number bounce */
+@keyframes multiplier-bounce {
+  0% {
+    transform: scale(0) rotate(-10deg);
+    opacity: 0;
+  }
+  50% {
+    transform: scale(1.3) rotate(5deg);
+  }
+  75% {
+    transform: scale(0.9) rotate(-3deg);
+  }
+  100% {
+    transform: scale(1) rotate(0deg);
+    opacity: 1;
+  }
+}
+
+.animate-multiplier-bounce {
+  animation: multiplier-bounce 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards;
+}
+
+/* Winning cell pulse */
+@keyframes winning-cell-pulse {
+  0%, 100% {
+    box-shadow: 
+      0 0 10px rgba(52, 211, 153, 0.5),
+      inset 0 0 5px rgba(52, 211, 153, 0.2);
+    transform: scale(1);
+  }
+  50% {
+    box-shadow: 
+      0 0 25px rgba(52, 211, 153, 0.8),
+      0 0 50px rgba(52, 211, 153, 0.4),
+      inset 0 0 15px rgba(52, 211, 153, 0.4);
+    transform: scale(1.08);
+  }
+}
+
+.animate-winning-cell {
+  animation: winning-cell-pulse 0.8s ease-in-out infinite;
+}
+
+/* Scatter cell gold glow */
+@keyframes scatter-glow {
+  0%, 100% {
+    box-shadow: 
+      0 0 15px rgba(250, 204, 21, 0.6),
+      0 0 30px rgba(250, 204, 21, 0.3);
+    transform: scale(1) rotate(0deg);
+  }
+  50% {
+    box-shadow: 
+      0 0 30px rgba(250, 204, 21, 1),
+      0 0 60px rgba(250, 204, 21, 0.5),
+      0 0 80px rgba(250, 204, 21, 0.3);
+    transform: scale(1.1) rotate(5deg);
+  }
+}
+
+.animate-scatter-glow {
+  animation: scatter-glow 1s ease-in-out infinite;
+}
+
+/* Spin button ready pulse */
+@keyframes spin-ready-pulse {
+  0%, 100% {
+    box-shadow: 
+      0 0 20px rgba(16, 185, 129, 0.4),
+      0 4px 20px rgba(16, 185, 129, 0.3);
+  }
+  50% {
+    box-shadow: 
+      0 0 40px rgba(16, 185, 129, 0.7),
+      0 8px 40px rgba(16, 185, 129, 0.5),
+      0 0 60px rgba(16, 185, 129, 0.3);
+  }
+}
+
+.animate-spin-ready {
+  animation: spin-ready-pulse 2s ease-in-out infinite;
+}
+
+/* Aurora background drift */
+@keyframes aurora-drift {
+  0%, 100% {
+    transform: translate(0, 0) scale(1);
+    opacity: 0.3;
+  }
+  25% {
+    transform: translate(50px, -30px) scale(1.1);
+    opacity: 0.4;
+  }
+  50% {
+    transform: translate(100px, 0) scale(0.9);
+    opacity: 0.2;
+  }
+  75% {
+    transform: translate(50px, 30px) scale(1.05);
+    opacity: 0.35;
+  }
+}
+
+.animate-aurora-drift {
+  animation: aurora-drift 15s ease-in-out infinite;
+}
+
+/* Balance number glow on increase */
+@keyframes balance-increase-glow {
+  0% {
+    text-shadow: 0 0 0 transparent;
+    transform: scale(1);
+  }
+  50% {
+    text-shadow: 0 0 20px rgba(52, 211, 153, 0.8), 0 0 40px rgba(52, 211, 153, 0.5);
+    transform: scale(1.05);
+  }
+  100% {
+    text-shadow: 0 0 0 transparent;
+    transform: scale(1);
+  }
+}
+
+.animate-balance-increase {
+  animation: balance-increase-glow 0.5s ease-out;
+}
+
+/* Sparkle burst effect */
+@keyframes sparkle-burst {
+  0% {
+    transform: scale(0) rotate(0deg);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(2) rotate(180deg);
+    opacity: 0;
+  }
+}
+
+.animate-sparkle-burst {
+  animation: sparkle-burst 0.6s ease-out forwards;
+}
+
+/* Continuous subtle slot machine idle animation */
+@keyframes slot-idle-glow {
+  0%, 100% {
+    box-shadow: 
+      0 0 30px rgba(139, 92, 246, 0.15),
+      inset 0 0 60px rgba(139, 92, 246, 0.05);
+  }
+  50% {
+    box-shadow: 
+      0 0 50px rgba(139, 92, 246, 0.25),
+      inset 0 0 80px rgba(139, 92, 246, 0.1);
+  }
+}
+
+.animate-slot-idle {
+  animation: slot-idle-glow 4s ease-in-out infinite;
+}
+
+/* ============================================
+   POKER WIN/LOSS ANIMATIONS
+   ============================================ */
+
+/* Win animation - money flying up */
+@keyframes win-money-fly {
+  0% {
+    opacity: 0;
+    transform: scale(0) translateY(0) rotate(0deg);
+  }
+  20% {
+    opacity: 1;
+    transform: scale(1.2) translateY(-20px) rotate(5deg);
+  }
+  50% {
+    transform: scale(1.1) translateY(-40px) rotate(-5deg);
+  }
+  80% {
+    transform: scale(1) translateY(-60px) rotate(2deg);
+  }
+  100% {
+    opacity: 0.8;
+    transform: scale(0.9) translateY(-80px) rotate(0deg);
+  }
+}
+
+/* Loss animation - money falling down */
+@keyframes loss-money-fall {
+  0% {
+    opacity: 0;
+    transform: scale(0) translateY(0) rotate(0deg);
+  }
+  20% {
+    opacity: 1;
+    transform: scale(1.2) translateY(20px) rotate(-5deg);
+  }
+  50% {
+    transform: scale(1.1) translateY(40px) rotate(5deg);
+  }
+  80% {
+    transform: scale(1) translateY(60px) rotate(-2deg);
+  }
+  100% {
+    opacity: 0.8;
+    transform: scale(0.9) translateY(80px) rotate(0deg);
+  }
+}
+
+/* Pulse glow for win */
+@keyframes win-glow {
+  0%, 100% {
+    text-shadow: 
+      0 0 20px rgba(34, 197, 94, 0.8),
+      0 0 40px rgba(34, 197, 94, 0.6),
+      0 0 60px rgba(34, 197, 94, 0.4);
+  }
+  50% {
+    text-shadow: 
+      0 0 30px rgba(34, 197, 94, 1),
+      0 0 60px rgba(34, 197, 94, 0.8),
+      0 0 90px rgba(34, 197, 94, 0.6);
+  }
+}
+
+/* Pulse glow for loss */
+@keyframes loss-glow {
+  0%, 100% {
+    text-shadow: 
+      0 0 20px rgba(239, 68, 68, 0.8),
+      0 0 40px rgba(239, 68, 68, 0.6),
+      0 0 60px rgba(239, 68, 68, 0.4);
+  }
+  50% {
+    text-shadow: 
+      0 0 30px rgba(239, 68, 68, 1),
+      0 0 60px rgba(239, 68, 68, 0.8),
+      0 0 90px rgba(239, 68, 68, 0.6);
+  }
+}
+
+.animate-win-money {
+  animation: win-money-fly 3s ease-out forwards;
+}
+
+.animate-loss-money {
+  animation: loss-money-fall 3s ease-out forwards;
+}
+
+.animate-win-glow {
+  animation: win-glow 1.5s ease-in-out infinite;
+}
+
+.animate-loss-glow {
+  animation: loss-glow 1.5s ease-in-out infinite;
+}
+

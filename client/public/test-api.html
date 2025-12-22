@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>API Test</title>
+</head>
+<body>
+    <h1>Testing API Connection</h1>
+    <button onclick="testAPI()">Test Signup API</button>
+    <pre id="result"></pre>
+    
+    <script>
+        async function testAPI() {
+            const result = document.getElementById('result');
+            result.textContent = 'Testing...';
+            
+            try {
+                const response = await fetch('http://localhost:3001/api/signup', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        username: 'htmltest',
+                        email: 'juri.stoffers@stud.gymthun.ch',
+                        password: 'TestPass123',
+                        street: 'Laubeckstrasse 2',
+                        city: 'Thun',
+                        postalCode: '3600',
+                        country: 'Switzerland'
+                    })
+                });
+                
+                const data = await response.json();
+                result.textContent = JSON.stringify(data, null, 2);
+            } catch (error) {
+                result.textContent = 'Error: ' + error.message;
+            }
+        }
+    </script>
+</body>
+</html>
