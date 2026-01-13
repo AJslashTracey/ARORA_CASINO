@@ -2,7 +2,7 @@
 
 Ein vollständiges Online-Casino als Schulprojekt mit modernem Frontend, sicherem Backend und verschiedenen Spielen.
 
-**Live Demo:** [arora.up.railway.app](https://arora.up.railway.app/)
+**Live Demo:** [arora.up.railway.app](https://arora.up.railway.app/) service down for demo as of Jan. 13th 2025
 
 ---
 
